@@ -22,7 +22,7 @@ class Tellr < Formula
   # Dependencies
   depends_on "python@3.11"
   depends_on "postgresql@14"
-  depends_on "node@18"
+  depends_on "node@20"
 
   def install
     # Install all app files to libexec
