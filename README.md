@@ -6,6 +6,23 @@ Generate presentation-ready slides from your Databricks data through natural con
 
 ---
 
+## Requirements
+
+You need:
+- **macOS**
+- **Homebrew** — Install from [brew.sh](https://brew.sh) if you don't have it:
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+- **Access to a Databricks workspace**
+
+The formula automatically installs these dependencies:
+- Python 3.11
+- PostgreSQL 14  
+- Node.js 18
+
+---
+
 ## Installation
 
 ```bash
@@ -65,23 +82,6 @@ brew upgrade tellr
 brew uninstall tellr
 brew untap RickTY94/tellr
 ```
-
----
-
-## Requirements
-
-You need:
-- **macOS**
-- **Homebrew** — Install from [brew.sh](https://brew.sh) if you don't have it:
-  ```bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
-- **Access to a Databricks workspace**
-
-The formula automatically installs these dependencies:
-- Python 3.11
-- PostgreSQL 14  
-- Node.js 18
 
 ---
 
