@@ -46,6 +46,8 @@ tellr
 
 Your browser will open to http://localhost:3000. On first run:
 
+![Welcome Screen](Welcome%20to%20tellr.png)
+
 1. **Enter your Databricks workspace URL** (e.g., `https://your-workspace.cloud.databricks.com`)
 2. **Sign in** with your Databricks credentials
 3. **Start generating slides!**
