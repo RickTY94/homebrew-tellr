@@ -79,7 +79,7 @@ class Tellr < Formula
         tellr
 
       On first run, enter your Databricks workspace URL in the browser.
-      You'll then sign in with your Databricks SSO credentials.
+      You'll then sign in with your Databricks credentials.
 
       Other commands:
         tellr stop     # Stop the app
