@@ -1,0 +1,51 @@
+name: Auto-update tellr formula
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'   # Check every 4 hours
+  workflow_dispatch:          # Manual trigger from Actions tab
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for new commits and update formula
+        run: |
+          # Get latest commit SHA from ai-slide-generator main
+          LATEST_SHA=$(curl -s https://api.github.com/repos/robertwhiffin/ai-slide-generator/commits/main | jq -r '.sha[:7]')
+          
+          # Get current version from formula
+          CURRENT_VERSION=$(grep 'version "' Formula/tellr.rb | head -1 | sed 's/.*version "//;s/".*//')
+          
+          # Check if SHA already in current version
+          if echo "$CURRENT_VERSION" | grep -q "$LATEST_SHA"; then
+            echo "Already up to date (${CURRENT_VERSION})"
+            exit 0
+          fi
+          
+          # New commit found - generate new version
+          NEW_VERSION="$(date -u +'%Y.%m.%d').${LATEST_SHA}"
+          echo "Updating: ${CURRENT_VERSION} -> ${NEW_VERSION}"
+          
+          # Get sha256 of the tarball
+          SHA256=$(curl -sL https://github.com/robertwhiffin/ai-slide-generator/archive/refs/heads/main.tar.gz | shasum -a 256 | cut -d' ' -f1)
+          
+          # Update formula
+          sed -i "s|version \".*\"|version \"${NEW_VERSION}\"|" Formula/tellr.rb
+          
+          # Add sha256 if not present, or update it
+          if grep -q 'sha256' Formula/tellr.rb; then
+            sed -i "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/tellr.rb
+          else
+            sed -i "/version \"${NEW_VERSION}\"/a\\  sha256 \"${SHA256}\"" Formula/tellr.rb
+          fi
+          
+          # Commit and push
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add Formula/tellr.rb
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "Auto-bump tellr to ${NEW_VERSION}"
+          git push
