@@ -19,7 +19,7 @@ You need:
 The formula automatically installs these dependencies:
 - Python 3.11
 - PostgreSQL 14  
-- Node.js 18
+- Node.js 20
 
 ---
 
