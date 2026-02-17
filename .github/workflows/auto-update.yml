@@ -2,8 +2,11 @@ name: Auto-update tellr formula
 
 on:
   schedule:
-    - cron: '0 */4 * * *'   # Check every 4 hours
-  workflow_dispatch:          # Manual trigger from Actions tab
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   check-and-update:
@@ -29,18 +32,8 @@ jobs:
           NEW_VERSION="$(date -u +'%Y.%m.%d').${LATEST_SHA}"
           echo "Updating: ${CURRENT_VERSION} -> ${NEW_VERSION}"
           
-          # Get sha256 of the tarball
-          SHA256=$(curl -sL https://github.com/robertwhiffin/ai-slide-generator/archive/refs/heads/main.tar.gz | shasum -a 256 | cut -d' ' -f1)
-          
-          # Update formula
+          # Update formula version only (no sha256 - branch URLs are mutable)
           sed -i "s|version \".*\"|version \"${NEW_VERSION}\"|" Formula/tellr.rb
-          
-          # Add sha256 if not present, or update it
-          if grep -q 'sha256' Formula/tellr.rb; then
-            sed -i "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/tellr.rb
-          else
-            sed -i "/version \"${NEW_VERSION}\"/a\\  sha256 \"${SHA256}\"" Formula/tellr.rb
-          fi
           
           # Commit and push
           git config user.name "github-actions[bot]"
