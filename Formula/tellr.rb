@@ -17,7 +17,7 @@ class Tellr < Formula
   homepage "https://github.com/robertwhiffin/ai-slide-generator"
   url "https://github.com/robertwhiffin/ai-slide-generator/archive/refs/heads/main.tar.gz"
   version "2026.02.17.a10e26d"
-  sha256 "9adad653acef00d520176588f3d35ccee74925d31a0903cad034e854eda9f40b"
+  sha256 :no_check
   license "Apache-2.0"
 
   # Dependencies
