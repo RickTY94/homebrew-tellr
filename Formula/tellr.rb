@@ -15,9 +15,9 @@
 class Tellr < Formula
   desc "AI-powered slide generator for Databricks"
   homepage "https://github.com/robertwhiffin/ai-slide-generator"
-  url "https://github.com/robertwhiffin/ai-slide-generator/archive/null.tar.gz"
-  version "2026.03.19.null"
-  sha256 "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
+  url "https://github.com/robertwhiffin/ai-slide-generator/archive/815495a19cfc42370de5d96272b4d912c622aa4e.tar.gz"
+  version "2026.03.19.815495a"
+  sha256 "5babb17a322ee3549d596ae9ab34489becb22fb1b970d9e8cf62d07cb62dda3b"
   license "Apache-2.0"
 
   # Dependencies
